@@ -1,8 +1,13 @@
+import Form from "../components/Form"
+import Navbar from "../components/Navbar"
 
 
 function EditPage(){
     return(
-        <h1>This is edit Page</h1>
+        <>
+        <Navbar />
+        <Form text="editPage" />
+        </>
     )
 }
 
