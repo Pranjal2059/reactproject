@@ -8,7 +8,6 @@ function CreatePage(){
         <Navbar />
         <Form text="createPage" />
 
-        
         </>
     )
 }
