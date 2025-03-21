@@ -1,5 +1,29 @@
+import axios from "axios"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function Form({text}){
+  let navigate = useNavigate()
+  const [title,setTitle] = useState("")
+  const [subtitle,setSubtitle] = useState("")
+  const [thumbnail,setThumbnail] = useState("")
+  const [description,setDescription] = useState("")
+
+  // console.log(title,subtitle,thumbnail,description)
+  async function createBlog(e){
+    e.preventDefault()
+    let response = await axios.post("https://67dba9491fd9e43fe4755320.mockapi.io/blogs",{
+      title ,
+      subtitle,
+      thumbnail, 
+      description
+    })
+    if(response.status == 201){
+      navigate("/")
+    }else{
+      console.log("Something went wrong")
+    }
+  }
     return(
         <div className="flex items-center justify-center h-screen">
   <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
@@ -19,22 +43,22 @@ function Form({text}){
         {text=="editPage" ? "Edit Page" : "Create Page" }
       </span>
     </div>
-    <form className="space-y-4">
+    <form onSubmit={createBlog} className="space-y-4">
       <div>
         {
             text == "createPage" && (
-<input type="text" placeholder="Enter title.." className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
+<input type="text" onChange={(e)=>setTitle(e.target.value)} placeholder="Enter title.." className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
             )
         }
       </div>
       <div>
-        <input type="text" placeholder="Enter subtitle..." className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
+        <input type="text" onChange={(e)=>setSubtitle(e.target.value)} placeholder="Enter subtitle..." className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
       </div>
       <div>
-        <input type="text" placeholder="Thumbnail Url" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
+        <input type="text" onChange={(e)=>setThumbnail(e.target.value)} placeholder="Thumbnail Url" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
       </div>
       <div className="relative">
-        <textarea placeholder="Enter Description" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
+        <textarea onChange={(e)=>setDescription(e.target.value)} placeholder="Enter Description" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-100" />
         <span className="absolute right-3 top-2.5 text-gray-400 cursor-pointer">
           👁️
         </span>
